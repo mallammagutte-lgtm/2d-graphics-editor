@@ -1,1 +1,123 @@
+PS C:\Users\ROG\OneDrive\Desktop\mini_project> 
+# 2D Vector Graphics Editor in C
+
+A professional, menu-driven 2D Graphics Editor written in standard C (C99). This application is designed as a university Data Structures and Programming assignment submission. It utilizes a dynamic character grid canvas and a doubly-linked list vector shape database to render geometric shapes in a terminal window.
+
+The application includes advanced features like an **undo stack**, **run-time canvas resizing**, **multi-symbol drawing**, and **vector schema serialization**.
+
+---
+
+## Features
+
+- **Standard Shape Rendering**:
+  - **Line**: Draws straight segments using Bresenham's Line Algorithm.
+  - **Rectangle**: Draws border boxes using coordinate boundary offsets.
+  - **Circle**: Draws circular outlines using the Midpoint Circle Algorithm.
+  - **Triangle**: Renders connected lines between three vertices.
+- **Dynamic Array Canvas Resizing**: Adjust canvas width (10–100) and height (10–40) at runtime.
+- **Vector Data Storage**: Implements a Doubly Linked List where each node represents an independent vector object with its own ID, shape parameters, and customizable drawing symbol (`*`, `#`, `@`).
+- **State-Based Undo Stack**: Supports undoing any change (insertions, modifications, deletions, canvas resizing, clears, loads).
+- **Double File Exporter**:
+  - **Save/Load Project**: Writes/reads shape properties to restore the session.
+  - **Export Rendered Canvas**: Dumps the raw ASCII characters to a file.
+- **Aesthetic Terminal GUI**: Features color-coded ANSI headers, indicators, success alerts, and index lines.
+- **Robust Scanner**: Prevents infinite loops or menu freezes on invalid numerical inputs.
+
+---
+
+## Data Structures Used
+
+```mermaid
+graph TD
+    A[EditorState] --> B[Canvas]
+    A --> C[ShapeNode - Head]
+    A --> D[UndoState - Stack Head]
+    
+    B -->|char** grid| E[Dynamic 2D Char Array]
+    
+    C -->|next / prev| F[ShapeNode 1]
+    F -->|next / prev| G[ShapeNode 2]
+    
+    D -->|next| H[UndoState 1]
+    H -->|next| I[UndoState 2]
+    
+    H -->|deep copy| J[Copy of Shape List]
+```
+
+### 1. The Shapes Doubly Linked List
+Each shape is stored as a node containing:
+- A unique shape ID.
+- An enum specifying the `ShapeType` (Line, Rectangle, Circle, Triangle).
+- A union structure (`ShapeParams`) for coordinates/dimensions.
+- A character symbol for rendering.
+- Pointers to the previous and next nodes.
+
+Using a doubly linked list provides:
+- $O(1)$ deletion of nodes.
+- Easy modification of shapes.
+- Clean memory reallocation.
+
+### 2. The Undo Memento Stack
+The undo system copies the editor state and pushes it onto a LIFO stack. The stack node (`UndoState`) contains a deep copy of the shape list, canvas dimensions, and ID counters. Undoing pops the top state, frees the current list, restores the popped properties, and redraws the canvas.
+
+### 3. Dynamic 2D Array Canvas
+The grid is allocated as a `char**` array:
+- Width and height are set at runtime.
+- All coordinates are validated before plotting to prevent memory corruption.
+
+---
+
+## Compilation & Execution
+
+### Prerequisites
+A compiler supporting standard C99 (GCC or Clang) is required.
+
+### 1. Compile on Linux using Makefile
+Run `make` in the repository root:
+```bash
+make
+```
+
+### 2. Manual Compile
+```bash
+gcc -Wall -Wextra -std=c99 -Iinclude src/graphics_editor.c -o graphics_editor -lm
+```
+
+### 3. Running the App
+```bash
+./graphics_editor
+```
+
+### 4. Cleaning Build Objects
+```bash
+make clean
+```
+
+---
+
+## Sample Canvas Output
+
+When drawing overlapping shapes, the editor uses colorized grids and index rules:
+
+```text
+   ┌────────────────────────────────────────────────────────────┐
+ 0 │____________________________________________________________│
+ 1 │____________________________________________________________│
+ 2 │─────#####──────────────*────────*──────────────────────────│
+ 3 │─────#───#───────────────*──────*───────────────────────────│
+ 4 │─────#───#────────────────*────*───────@@@@@────────────────│
+ 5 │─────#───#─────────────────*──*───────@─────@───────────────│
+ 6 │─────#####──────────────────**────────@─────@───────────────│
+ 7 │_____________________________________@───────@──────────────│
+ 8 │__________*___________________________@─────@───────────────│
+ 9 │___________*───────────────────────────@@@@@────────────────│
+10 │____________*──────────────────────────────────────────────│
+...
+   └────────────────────────────────────────────────────────────┘
+    0         1         2         3         4         5         
+    012345678901234567890123456789012345678901234567890123456789
+```
+
+---
+
 
