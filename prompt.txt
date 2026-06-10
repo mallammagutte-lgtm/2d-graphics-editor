@@ -1,0 +1,80 @@
+Create a complete, original, menu-driven 2D Graphics Editor in C that can be compiled and run on Linux using GCC. The project must be suitable for a university Data Structures and Programming assignment and should be original enough to achieve full marks.
+
+Requirements:
+
+1. Use a 2D character array as the drawing canvas.
+2. Initialize the canvas with '_' (underscore).
+3. Draw all graphical objects using '*' (asterisk).
+4. Implement the following functions:
+
+   * drawLine()
+   * drawRectangle()
+   * drawTriangle()
+   * drawCircle()
+   * displayCanvas()
+5. Provide menu options to:
+
+   * Add a new object
+   * Delete an existing object
+   * Modify an existing object
+   * Display the picture
+   * Clear the canvas
+   * Save the picture to a text file
+   * Load the picture from a text file
+   * Exit
+6. Store all objects in structures and maintain an object list with unique IDs.
+7. Allow deletion and modification by object ID.
+8. When an object is deleted or modified, redraw the entire canvas from the object list.
+9. Use modular programming with separate functions for each operation.
+10. Include proper input validation and boundary checking.
+11. Use meaningful comments throughout the code.
+12. Create a professional README.md containing:
+
+    * Project description
+    * Features
+    * Data structures used
+    * Compilation steps
+    * Execution steps
+    * Sample screenshots/output
+13. Create the following GitHub repository structure:
+
+2D-Graphics-Editor/
+│
+├── src/
+│   └── graphics_editor.c
+├── include/
+│   └── graphics_editor.h
+├── docs/
+│   └── screenshots
+├── sample_output/
+│   └── output.txt
+├── README.md
+├── LICENSE
+└── Makefile
+
+14. Add advanced features for originality:
+
+    * Undo last operation
+    * Different drawing symbols (*, #, @)
+    * Canvas resizing
+    * Object counting statistics
+    * Export canvas to a text file
+15. The program should be at least 400+ lines of well-structured code.
+16. Follow good software engineering practices.
+17. Generate sample outputs showing line, rectangle, circle, and triangle drawings.
+18. Provide step-by-step GitHub commit messages for daily pushes over 5 days.
+19. Ensure the code is completely original and not copied from common internet sources.
+20. Use only standard C libraries. Optionally provide a second version using ncurses for a graphical menu interface.
+
+Generate:
+
+* Complete source code
+* Header file
+* Makefile
+* README.md
+* Sample output
+* GitHub repository setup instructions
+* Daily commit plan
+* Viva questions and answers related to the project
+
+The final solution should be submission-ready and capable of earning full marks according to the given rubric.
